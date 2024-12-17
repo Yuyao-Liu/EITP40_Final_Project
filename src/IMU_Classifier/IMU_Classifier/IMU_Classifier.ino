@@ -39,7 +39,7 @@ const int inputLength = 714; // dimension of input tensor (6 values * 119 sample
 // The alignas(16) directive is used to ensure that the array is aligned on a 16-byte boundary,
 // this is important for performance and to prevent some issues on ARM microcontroller architectures.
 constexpr int tensorArenaSize = 8 * 1024;
-alignas(16) byte tensorArena[tensorArenaSize];
+alignas(16) 9     byte tensorArena[tensorArenaSize];
 
 // a simple table to map gesture labels
 const char* GESTURES[] = {
