@@ -1,27 +1,4 @@
-/*
-  Gesture Classifier
-  This sketch demonstrates the use of the ArduTFLite library to recognize the two gestures "punch" and "flex" 
-  through readings from the IMU sensor integrated into the Arduino Nano 33 BLE board. 
-  This example is an updated variation of the famous tutorial created by Don Coleman, Sandeep Mistry, 
-  and Dominic Pajak in 2019. 
-  Along with the sketch, the file model.h is included, which contains a pre-trained model.
-
-  The sketch was created and tested on Arduino Nano 33 BLE rev 1 and rev 2 boards, but it can be adapted 
-  to run on other boards, compatible with the library, which have an IMU sensor connected with a sampling 
-  frequency close to 100 Hz.
-
-  CIRCUIT: Arduino Nano 33 BLE Rev.1 or Rev.2
-
-  USAGE: uncomment IMU sensor library, according to yor board revision, compile, load and open serial monitor
-         keep the board in your hand and do a gesture!
-
-  
-  This example code is in the public domain.
-*/
-
-// Uncomment library definition, according to your board version
 #include <Arduino_LSM9DS1.h> // IMU Sensor Library for Arduino Nano 33 BLE Rev.1
-// #include <Arduino_BMI270_BMM150.h> // IMU Sensor Library for Arduino Nano 33 BLE Rev.2
 
 #include <ArduTFLite.h>
 
@@ -33,13 +10,8 @@ const int numSamples = 119; // Number of samples for a single gesture
 int samplesRead; // sample counter 
 const int inputLength = 714; // dimension of input tensor (6 values * 119 samples)
 
-// The Tensor Arena memory area is used by TensorFlow Lite to store input, output and intermediate tensors
-// It must be defined as a global array of byte (or u_int8 which is the same type on Arduino) 
-// The Tensor Arena size must be defined by trials and errors. We use here a quite large value.
-// The alignas(16) directive is used to ensure that the array is aligned on a 16-byte boundary,
-// this is important for performance and to prevent some issues on ARM microcontroller architectures.
 constexpr int tensorArenaSize = 8 * 1024;
-alignas(16) 9     byte tensorArena[tensorArenaSize];
+alignas(16) byte tensorArena[tensorArenaSize];
 
 // a simple table to map gesture labels
 const char* GESTURES[] = {
